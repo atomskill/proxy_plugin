@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+
+import argparse
+from os import getcwd
+from os.path import exists
+
+from proxy import __version__, app
+
+
+def main() -> None:
+    """ Arguments parse. """
+    formatter_class = argparse.ArgumentDefaultsHelpFormatter
+    parser = argparse.ArgumentParser(formatter_class=formatter_class)
+
+    parser.add_argument('--host',
+                        action='store',
+                        dest='host',
+                        type=str,
+                        help='host address',
+                        default='0.0.0.0')
+
+    parser.add_argument('--port',
+                        action='store',
+                        dest='port',
+                        type=int,
+                        help='port number',
+                        default=5000)
+
+    parser.add_argument('--debug',
+                        action='store_true',
+                        dest='debug',
+                        help='debug mode',
+                        default=False)
+
+    parser.add_argument('--middleware',
+                        action='store',
+                        dest='middleware',
+                        type=str,
+                        help='middleware list (comma separated)',
+                        default='proxy.middleware.info.middleware')
+
+    parser.add_argument('--upload-dir',
+                        action='store',
+                        dest='upload_dir',
+                        type=str,
+                        help='upload dir path',
+                        default=f'{getcwd()}/uploads')
+
+    parser.add_argument('-v',
+                        '--version',
+                        action='version',
+                        version=".".join(map(str, __version__)))
+
+    args = parser.parse_args()
+    if not exists(args.upload_dir):
+        exit(f'Upload path {args.upload_dir} not exists.')
+
+    app.run(args)
+
+
+if __name__ == '__main__':
+    exit(main())

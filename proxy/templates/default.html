@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>file list demo</title>
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='css/table.min.css') }}" rel="stylesheet" type="text/css">
+    <script src="{{ url_for('static', filename='js/table.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/default.js') }}"></script>
+    {% block head %}{% endblock %}
+    {% block final %}{% endblock %}
+
+    <script>
+        let files = {{ files | tojson }};
+    </script>
+</head>
+<body class="bg-light">
+<main class="container">
+    <input type="file" class="fade" id="fileElem" multiple onchange="upload(this.files);">
+
+    <button type="submit" class="btn btn-primary form-control mb-3" onclick="selectFiles();">Add files</button>
+
+    <div id="file_list"></div>
+</main>
+</body>
+</html>

@@ -1,0 +1,7 @@
+{
+  "execute": "test-app.py",
+  "objects": [
+    "data-1.txt",
+    "data-2.txt"
+  ]
+}
